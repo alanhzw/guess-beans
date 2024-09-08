@@ -6,6 +6,7 @@ import router from './router';
 
 // reset css
 import 'modern-normalize';
+import 'element-plus/dist/index.css';
 
 const app = createApp(App);
 

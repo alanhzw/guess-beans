@@ -13,6 +13,7 @@ export const useConnectionStore = defineStore('connection', () => {
   const bindEvents = () => {
     // 监听 socket 连接事件
     socket.on('connect', () => {
+      console.log('🚀🚀 ~ socket.on ~ socket:', socket);
       isConnected.value = true;
       console.log('✅✅✅ ~ socket 已成功连接 ~ ✅✅✅');
     });
