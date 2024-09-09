@@ -2,7 +2,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { addUser, removeUser } from './user';
-import { handleGameReady } from './game/index';
+import { handleGameReady, handleGameBet } from './game/index';
 
 // 开发环境的客户端 URL
 const DEV_FRONT_END_URL = 'http://localhost:5173';
@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
   // 监听游戏准备
   socket.on('game:ready', handleGameReady({ io, socket }));
   // 监听用户下注
-  socket.on('game:bet', removeUser({ io, socket }));
+  socket.on('game:bet', handleGameBet({ io, socket }));
 });
 
 httpServer.listen(3000, () => {

@@ -6,29 +6,48 @@ export interface User {
   name: string;
 }
 
+/** 玩家投注数 */
+export interface PlayerBeans {
+  /** 玩家ID */
+  id: string;
+  /** 玩家投注数 */
+  betBeans: number;
+}
+
 /** 游戏记录 */
 export interface GameRecord {
-  /** 信息列表 */
-  messages: string[];
-  /** 上一轮输家所投入的豆子数量 */
-  lastLoserBeans: number;
+  /** 回合数 */
+  round: number;
+  /** 玩家下注数 */
+  playerBeans: PlayerBeans[];
+  /** 本回合输家所投入的豆子数量 */
+  loserBeans: number;
 }
 
 /** 游戏 */
 export interface Game {
-  /** 是否开始 */
+  /** 游戏状态 */
   status: 'ready' | 'running' | 'end';
   /** 玩家列表 */
   players: Player[];
   /** 记录 */
   record: GameRecord[];
+  /** 当前回合数 */
+  round: number;
+  /** 下注人数 */
+  betCount: number;
+  /**获胜方 */
+  winner?: Player;
+  /** 输方 */
+  loser?: Player;
 }
-
 /** 玩家 */
 export interface Player {
   /** 唯一标识ID */
   id: string;
-  /** 是否开始 */
+  /** 用户名称 */
+  name: string;
+  /** 玩家状态 */
   status: 'ready' | 'running' | 'hanging';
   /** 剩余豆子数量 */
   restBeans: number;

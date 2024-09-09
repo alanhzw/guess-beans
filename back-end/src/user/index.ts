@@ -20,7 +20,12 @@ export const addUser = ({ io, socket }: SocketOnParams) => {
     // 用户列表添加当前用户
     gameController.userList.push(userInfo);
     // 把生成 id 后的用户信息返回给客户端
-    callback(res(userInfo));
+    callback(
+      res({
+        userInfo,
+        game: gameController.game,
+      }),
+    );
     // 广播给所有人
     io.emit('userList:update', res({ userList: gameController.userList }));
   };
@@ -43,7 +48,7 @@ export const removeUser = ({ io, socket }: SocketOnParams) => {
       gameController.reset();
       // 广播给所有人有人退出了游戏
       io.emit(
-        'game:exit',
+        'game:update',
         res(
           { game: gameController.game },
           true,

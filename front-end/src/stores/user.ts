@@ -3,11 +3,13 @@ import { defineStore } from 'pinia';
 import type { User } from '@/types';
 import socket from '@/socket';
 import { ElMessage } from 'element-plus';
+import { useGameStore } from './game';
 
 /**
  * @description: 用户信息
  */
 export const useUserInfoStore = defineStore('userInfo', () => {
+  const gameStore = useGameStore();
   // 用户信息
   const userInfo = ref<User>({
     id: null,
@@ -28,7 +30,8 @@ export const useUserInfoStore = defineStore('userInfo', () => {
       return;
     }
     isLogin.value = true;
-    userInfo.value = data;
+    userInfo.value = data.userInfo;
+    gameStore.game = data.game;
   };
 
   return { userInfo, isLogin, bindEvents, handleClickLogin };

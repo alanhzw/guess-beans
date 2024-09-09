@@ -14,16 +14,13 @@ export const useGameStore = defineStore('game', () => {
     players: [],
     record: [],
     status: 'ready',
+    round: 0,
+    betCount: 0,
   });
   // 绑定 socket 事件
   const bindEvents = () => {
-    // 游戏开始事件
-    socket.on('game:start', ({ data, message }) => {
-      game.value = data.game;
-      ElMessage.success(message);
-    });
-    // 有人断开连接
-    socket.on('game:exit', ({ data, message }) => {
+    // 游戏有更新
+    socket.on('game:update', ({ data, message }) => {
       game.value = data.game;
       ElMessage.success(message);
     });
@@ -40,5 +37,11 @@ export const useGameStore = defineStore('game', () => {
     }
     game.value = data.game;
   };
-  return { game, joinGame, bindEvents };
+
+  // 点击下注按钮
+  const bet = async (betBeans: number) => {
+    await socket.emitWithAck('game:bet', { id: userInfoStore.userInfo.id, betBeans });
+  };
+
+  return { game, joinGame, bindEvents, bet };
 });
