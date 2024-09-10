@@ -7,14 +7,14 @@ import { handleGameReady, handleGameBet } from './game/index';
 // 开发环境的客户端 URL
 const DEV_FRONT_END_URL = 'http://localhost:5173';
 // 生产环境的客户端 URL
-const PROD_FRONT_END_URL = 'http://82.156.231.91:5473';
+const PROD_FRONT_END_URL = 'http://www.warblerfe.top:5473/';
 
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   // 跨域
   cors: {
-    origin: DEV_FRONT_END_URL,
+    origin: PROD_FRONT_END_URL,
   },
 });
 
