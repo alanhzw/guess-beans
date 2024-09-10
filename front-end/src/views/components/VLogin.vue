@@ -1,13 +1,16 @@
 <template>
-  <div class="login">
-    <el-input
-      v-model="username"
-      type="text"
-      style="width: 200px"
-      placeholder="请输入昵称"
-      maxlength="20"
-    />
-    <el-button @click="login" type="primary">进入</el-button>
+  <div class="login-page">
+    <GameRule></GameRule>
+    <div class="login">
+      <el-input
+        v-model="username"
+        type="text"
+        style="width: 200px"
+        placeholder="请输入昵称"
+        maxlength="20"
+      />
+      <el-button @click="login" type="primary">进入</el-button>
+    </div>
   </div>
 </template>
 
@@ -15,6 +18,7 @@
 import { ref } from 'vue';
 import { useUserInfoStore } from '@/stores/user';
 import { ElMessage } from 'element-plus';
+import GameRule from './GameRule.vue';
 const userInfoStore = useUserInfoStore();
 
 // 昵称

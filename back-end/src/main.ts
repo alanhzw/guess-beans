@@ -14,7 +14,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   // 跨域
   cors: {
-    origin: PROD_FRONT_END_URL,
+    origin: '*',
   },
 });
 

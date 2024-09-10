@@ -22,7 +22,7 @@ export const useGameStore = defineStore('game', () => {
     // 游戏有更新
     socket.on('game:update', ({ data, message }) => {
       game.value = data.game;
-      ElMessage.success(message);
+      if (message) ElMessage.success(message);
     });
   };
 
@@ -40,7 +40,11 @@ export const useGameStore = defineStore('game', () => {
 
   // 点击下注按钮
   const bet = async (betBeans: number) => {
-    await socket.emitWithAck('game:bet', { id: userInfoStore.userInfo.id, betBeans });
+    const { success, message } = await socket.emitWithAck('game:bet', {
+      id: userInfoStore.userInfo.id,
+      betBeans,
+    });
+    if (success) ElMessage.warning(message);
   };
 
   return { game, joinGame, bindEvents, bet };

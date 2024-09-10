@@ -57,7 +57,7 @@
       <div>
         <el-text>你剩余的豆子数量：{{ seleInfo.restBeans }}</el-text>
       </div>
-      <div style="display: flex; gap: 16px">
+      <div class="bet-wrapper" style="display: flex; gap: 16px">
         <el-text>本回合投入的豆子数量：</el-text>
         <el-input-number
           v-model="betBeans"
@@ -168,6 +168,15 @@ const getPlayerName = (bet: { id: string; betBeans: number }) => {
     justify-content: flex-start;
     gap: 16px;
     align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .game-core {
+    height: 100vh !important;
+  }
+  .bet-wrapper {
+    flex-direction: column;
   }
 }
 </style>

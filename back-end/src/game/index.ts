@@ -107,8 +107,9 @@ export const handleGameBet = ({ io, socket }: SocketOnParams) => {
         loserBeans: 0,
       });
     }
+    callback(res({}, true, '投入成功，请等待本回合结果'));
     // 广播给所有玩家
-    io.emit('game:update', res({ game: gameController.game }, true, '投入成功，请等待本回合结果'));
+    io.emit('game:update', res({ game: gameController.game }));
   };
 };
 

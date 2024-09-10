@@ -38,4 +38,11 @@
     font-weight: bold;
   }
 }
+@media screen and (max-width: 768px) {
+  .game-rule {
+    width: 100% !important;
+    border-top: 2px solid #ccc;
+    border-left: none !important;
+  }
+}
 </style>

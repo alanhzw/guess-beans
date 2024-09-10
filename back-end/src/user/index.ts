@@ -36,8 +36,13 @@ export const removeUser = ({ io, socket }: SocketOnParams) => {
   return async () => {
     // 找到断开连接的用户
     const disconnectedUser = gameController.userList.find((user: User) => user.id === socket.id)!;
-    // 广播给所有人
+    // 用户列表删除断开连接的用户
     gameController.userList = gameController.userList.filter((user: User) => user.id !== socket.id);
+    // 玩家列表也删除断开连接的用户
+    gameController.game.players = gameController.game.players.filter(
+      (player: Player) => player.id !== socket.id,
+    );
+    // 广播给所有人
     io.emit('userList:update', res({ userList: gameController.userList }));
     // 判断断开连接的人是不是在游戏中
     if (
