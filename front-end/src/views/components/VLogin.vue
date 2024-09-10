@@ -1,6 +1,6 @@
 <template>
   <div class="login-page">
-    <GameRule></GameRule>
+    <GameRule class="show-GameRule"></GameRule>
     <div class="login">
       <el-input
         v-model="username"
@@ -35,6 +35,10 @@ const login = () => {
 </script>
 
 <style lang="scss" scoped>
+.login-page {
+  width: 100%;
+  height: 100%;
+}
 .login {
   width: 100%;
   height: 100%;
@@ -42,5 +46,10 @@ const login = () => {
   justify-content: center;
   align-items: center;
   gap: 16px;
+}
+@media screen and (min-width: 768px) {
+  .show-GameRule {
+    display: none;
+  }
 }
 </style>
