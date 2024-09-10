@@ -6,6 +6,8 @@ import { handleGameReady, handleGameBet } from './game/index';
 
 // 开发环境的客户端 URL
 const DEV_FRONT_END_URL = 'http://localhost:5173';
+// 生产环境的客户端 URL
+const PROD_FRONT_END_URL = 'http://82.156.231.91:5473';
 
 const app = express();
 const httpServer = createServer(app);
@@ -30,6 +32,6 @@ io.on('connection', (socket) => {
   socket.on('game:bet', handleGameBet({ io, socket }));
 });
 
-httpServer.listen(3000, () => {
-  console.log('✅✅✅ ~ 服务器已启动, 端口: 3000 ~ ✅✅✅');
+httpServer.listen(3001, () => {
+  console.log('✅✅✅ ~ 服务器已启动, 端口: 3001 ~ ✅✅✅');
 });
