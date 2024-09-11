@@ -1,6 +1,6 @@
 <template>
   <div class="user-list">
-    <div>人员列表</div>
+    <div class="list-title">人员列表</div>
     <div class="list-wrapper">
       <div class="list-content">
         <div v-for="user in userListStore.userList" :key="user.id!" class="user-item">
@@ -37,11 +37,20 @@ const getStatus = (user: User) => {
 
 <style lang="scss" scoped>
 .user-list {
-  width: 400px;
-  border-right: 5px solid #ccc;
+  flex: 1;
+  width: 100%;
+  border-right: 5px solid #ffffff;
   padding: 16px;
   display: flex;
   flex-direction: column;
+  background: #27293d;
+  border: 0;
+  border-radius: 0.04rem;
+  .list-title {
+    padding: 0 0 16px 0;
+    border-bottom: 1px solid #1d8cf8;
+    font-weight: bold;
+  }
   .list-wrapper {
     flex: 1;
     position: relative;
@@ -60,7 +69,7 @@ const getStatus = (user: User) => {
     align-items: center;
     border-radius: 4px;
     background: linear-gradient(135deg, #0ea5e9, #ec5990 140%);
-    margin: 8px 0;
+    margin: 16px 0;
     padding: 8px;
     .info {
       display: flex;
@@ -71,7 +80,7 @@ const getStatus = (user: User) => {
         font-size: 16px;
       }
       .id {
-        color: #ccc;
+        color: #ffffff;
         font-size: 14px;
       }
     }

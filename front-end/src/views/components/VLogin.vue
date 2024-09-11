@@ -47,9 +47,4 @@ const login = () => {
   align-items: center;
   gap: 16px;
 }
-@media screen and (min-width: 768px) {
-  .show-GameRule {
-    display: none;
-  }
-}
 </style>

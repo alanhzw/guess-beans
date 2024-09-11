@@ -92,6 +92,17 @@ export const handleGameBet = ({ io, socket }: SocketOnParams) => {
         io.emit('game:update', res({ game: gameController.game }, true, '游戏结束'));
         return;
       }
+      // 是否平局
+      if (
+        gameController.game.players.every((player) => player.restBeans === 0) &&
+        gameController.game.players.every((player) => player.score < 2)
+      ) {
+        gameController.game.status = 'end';
+        // 获取赢家
+        gameController.game.winner = undefined;
+        io.emit('game:update', res({ game: gameController.game }, true, '游戏结束'));
+        return;
+      }
       // 所有玩家状态重置为游戏中
       gameController.game.players.forEach((player) => {
         player.status = 'running';

@@ -4,7 +4,7 @@
     <div class="game-title">游戏面板</div>
     <!-- 游戏状态为准备时显示 -->
     <div class="game-ready-tip" v-if="gameStore.game.status !== 'running'">
-      <div>等待玩家加入 ~</div>
+      <div class="tip-text">等待玩家加入 ~</div>
       <el-button
         type="primary"
         style="margin-top: 16px"
@@ -34,7 +34,7 @@
               本回合平局
             </div>
             <div class="loser-beans" v-else>
-              上一回合输家所投入的豆子数量为：{{ record.loserBeans }}
+              上一回合输家所投入的豆子数量为：【 {{ record.loserBeans }} 】
             </div>
           </div>
         </template>
@@ -45,20 +45,23 @@
           <div class="record-item" v-if="recordIndex !== gameStore.game.record.length">
             <div class="round">第 {{ record.round }} 回合</div>
             <div class="bet-beans" v-for="(bet, betIndex) in record.playerBeans" :key="betIndex">
-              {{ getPlayerName(bet) }} 投入的豆子数量为：{{ bet.betBeans }}
+              【 {{ getPlayerName(bet) }} 】 投入的豆子数量为：【 {{ bet.betBeans }} 】
             </div>
           </div>
         </template>
-        <div>游戏结束，获胜方为：{{ gameStore.game.winner?.name }}</div>
+        <div v-if="gameStore.game.winner">
+          游戏结束，获胜方为：{{ gameStore.game.winner?.name }}
+        </div>
+        <div v-else>游戏结束，本轮游戏平局</div>
       </div>
     </div>
     <!-- 下注 只有加入游戏并且游戏状态为运行时才显示 -->
     <div class="game-bet" v-if="seleInfo && gameStore.game.status === 'running'">
       <div>
-        <el-text>你剩余的豆子数量：{{ seleInfo.restBeans }}</el-text>
+        <div>你剩余的豆子数量：{{ seleInfo.restBeans }}</div>
       </div>
       <div class="bet-wrapper" style="display: flex; gap: 16px">
-        <el-text>本回合投入的豆子数量：</el-text>
+        <div>本回合投入的豆子数量：</div>
         <el-input-number
           v-model="betBeans"
           :min="0"
@@ -128,16 +131,28 @@ const getPlayerName = (bet: { id: string; betBeans: number }) => {
 .game-core {
   flex: 1;
   display: flex;
+  background: #27293d;
+  border: 0;
+  border-radius: 0.04rem;
+  justify-content: flex-start;
+  gap: 0.16rem;
+  padding: 16px;
   flex-direction: column;
+
   .game-title {
-    padding: 16px;
+    padding: 0 0 16px 0;
+    border-bottom: 1px solid #1d8cf8;
+    font-weight: bold;
+  }
+  .tip-text {
+    font-size: 0.15rem;
+    color: #ffffed;
   }
   .game-record {
     flex: 1;
     position: relative;
     .game-running,
     .game-end {
-      padding: 16px;
       width: 100%;
       height: 100%;
       position: absolute;
@@ -146,37 +161,31 @@ const getPlayerName = (bet: { id: string; betBeans: number }) => {
       overflow: auto;
     }
     .record-item {
+      padding: 16px;
       width: 100%;
-      height: 100px;
-      border: 2px solid #ccc;
-      border-radius: 4px;
-      margin: 8px 0;
+      border: 1px solid #e14eca;
+      color: #e14eca;
+      margin: 16px 0;
+      .round,
+      .bet-beans {
+        padding: 0.08rem 0;
+      }
     }
   }
   .game-ready-tip {
     font-size: 20px;
-    color: #ccc;
-    padding: 16px;
+    color: #ffffff;
   }
   .game-bet {
     width: 100%;
-    height: 200px;
-    padding: 16px;
-    border-top: 5px solid #ccc;
+    height: 150px;
+    padding: 16px 0;
+    border-top: 1px solid #1d8cf8;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 16px;
     align-items: flex-start;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .game-core {
-    height: 100vh !important;
-  }
-  .bet-wrapper {
-    flex-direction: column;
   }
 }
 </style>

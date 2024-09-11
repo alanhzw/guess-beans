@@ -34,5 +34,7 @@ body,
 .game-page {
   width: 100vw;
   height: 100vh;
+  background-color: #1e1e2f;
+  color: #ffffff;
 }
 </style>
